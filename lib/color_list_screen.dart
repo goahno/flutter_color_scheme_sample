@@ -62,27 +62,28 @@ class ColorListScreen extends StatelessWidget {
       _ColorItem('surfaceTint', colorScheme.surfaceTint),
     ];
 
-    return ListView.builder(
+    return ListView.separated(
+      padding: EdgeInsets.all(16),
+      separatorBuilder: (_, _) => SizedBox(height: 16),
       itemCount: colorItems.length,
       itemBuilder: (context, index) {
         final item = colorItems[index];
         return Align(
           alignment: Alignment.centerLeft,
-          child: UnconstrainedBox(
-            child: SizedBox(
-              width: 450,
-              child: ListTile(
-                title: Text(item.name),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  spacing: 16,
-                  children: [
-                    Container(width: 80, height: 24, color: item.color),
-                    SelectableText(item.color.toHexString()),
-                  ],
+          child: Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            children: [
+              SizedBox(
+                width: 200,
+                child: Text(
+                  item.name,
+                  style: TextTheme.of(context).titleMedium,
                 ),
               ),
-            ),
+              Container(width: 80, height: 24, color: item.color),
+              SelectableText(item.color.toHexString()),
+            ],
           ),
         );
       },
